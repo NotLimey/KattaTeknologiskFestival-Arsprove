@@ -1,0 +1,33 @@
+﻿<div class="activity-card" data-aos="fade-right" >
+    <div class="table-grid">
+        <div class="@Class1"><p class="@Class2">@grid1</p></div>
+        <div><p>@grid2</p></div>
+        <div><p>@grid3</p></div>
+        <div><p>@grid4</p></div>
+        <div><p>@grid5</p></div>
+        <div><p>@grid6</p></div>
+        <div><p>@grid7</p></div>
+        <div><p>@grid8</p></div>
+        <div><p>@grid9</p></div>
+        <div><p>@grid10</p></div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string grid1 { get; set; }
+    [Parameter] public string grid2 { get; set; }
+    [Parameter] public string grid3 { get; set; }
+    [Parameter] public string grid4 { get; set; }
+    [Parameter] public string grid5 { get; set; }
+    [Parameter] public string grid6 { get; set; }
+    [Parameter] public string grid7 { get; set; }
+    [Parameter] public string grid8 { get; set; }
+    [Parameter] public string grid9 { get; set; }
+    [Parameter] public string grid10 { get; set; }
+
+    [Parameter] public string Link{ get; set; }
+    [Parameter] public string Class1{ get; set; }
+    [Parameter] public string Class2{ get; set; }
+
+    [Parameter] public string action { get; set; }
+}

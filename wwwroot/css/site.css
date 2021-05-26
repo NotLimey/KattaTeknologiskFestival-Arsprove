@@ -158,5 +158,151 @@ section {
 }
 
 .line-bottom {
-    border-bottom: solid 2px #000;
+    border-bottom: solid 5px #ffb600;
+    margin-bottom: 30px;
+}
+
+.table-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.table-grid p {
+    margin-top: auto !important;
+    margin-bottom: 0;
+    padding: 8px 0;
+}
+
+.activity-card {
+    margin: 15px 0;
+    background-color: #D9D9D9;
+    width: 100%;
+    border: 1px solid #000;
+    border-radius: 8px;
+    font-weight: 400;
+}
+
+.activity-card a {
+    text-decoration: none;
+    color: #000;
+}
+
+.dont-center {
+    text-align: start;
+}
+
+.f-400 {
+    font-weight: 400;
+}
+
+.f-500 {
+    font-weight: 500;
+}
+
+.padding-bottom-M {
+    margin-bottom: 150px;
+}
+
+.boardActive {
+    background-color: #FBDD92;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.p-l-40 {
+    padding-left: 40px;
+}
+
+.p-l-50 {
+    padding-left: 50px;
+}
+
+.p-l-60 {
+    padding-left: 60px;
+}
+
+.no-break {
+    white-space: nowrap;
+}
+
+#mobile-header-img {
+    background-image: url(/img/Hamar_katedralskoleCover.jpg) !important;
+    background-size: cover;
+    min-width: 100%;
+    height: 50vh;
+    opacity: 0.8;
+    border-bottom: 7px #ffb600 solid;
+}
+
+.mobile-header {
+    font-size: 20px;
+}
+
+.parent-mobile {
+    display: flex;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 45%;
+}
+
+.parent-mobile h2 {
+    padding-bottom: 5px;
+    border-bottom: 3px solid #ffb600;
+}
+
+.center-grid{
+    display: grid;
+}
+
+.info-Header-mobile {
+    padding-top: 20%;
+    padding-bottom: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 30%;
+    border-bottom: solid 3px #ffb600;
+    font-size: 16px;
+}
+
+.info-p-mobile {
+    padding: 0 10%;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+
+
+/* Media queries */
+@media screen and (max-width: 600px) {
+    .pc {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .mobile {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 370px) {
+    .info-Header-mobile {
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .info-Header-mobile {
+        font-size: 20px;
+    }
 }
