@@ -1,0 +1,52 @@
+﻿<div class="ms-depth-16">
+    <EditForm model="model" OnValidSubmit="AddEventToSelectedDay">
+        <div class="calendar-toolbar">
+            <button class="toolbar-button" type="submit" >
+                <i class="ms-Icon ms-Icon--AddEvent"></i> Legg til
+            </button>
+        </div>
+        <div class="card-content">
+            <h3 class="ms-fontSize-24 ms-fontWeight-regular">@SelectedDay.Date.ToString("D")</h3>
+            <input class="fluent-input" type="text" @bind-value="model.Subject" placeholder="Hva skal skje i rommet?" />
+            <input class="fluent-input" type="time" @bind-value="model.StartDate" placeholder="Start Klokkeslett" />
+            <input class="fluent-input" type="time" @bind-value="model.EndDate" placeholder="Slutt Klokkeslett" />
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter]
+    public CalendarDay SelectedDay { get; set; }
+
+    private CalandarEvent model = new CalandarEvent();
+
+    private void AddEventToSelectedDay()
+    {
+        // Convert time to new date within selected day
+        model.StartDate = new DateTime(SelectedDay.Date.Year,
+                                        SelectedDay.Date.Month,
+                                        SelectedDay.Date.Day,
+                                        model.StartDate.Hour,
+                                        model.StartDate.Minute,
+                                        0);
+        model.EndDate = new DateTime(SelectedDay.Date.Year,
+                                        SelectedDay.Date.Month,
+                                        SelectedDay.Date.Day,
+                                        model.EndDate.Hour,
+                                        model.EndDate.Minute,
+                                        0);
+
+        if (SelectedDay.Events == null)
+            SelectedDay.Events = new List<CalandarEvent>();
+
+        SelectedDay.Events.Add(new CalandarEvent
+        {
+            Subject = model.Subject,
+            StartDate = model.StartDate,
+            EndDate = model.EndDate
+        }); 
+
+        Console.WriteLine($"Total Event in Day {SelectedDay.Events.Count} / {model.Subject} / {model.StartDate} / {model.EndDate}");
+        model = new CalandarEvent();
+    }
+}

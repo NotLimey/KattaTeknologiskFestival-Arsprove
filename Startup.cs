@@ -1,8 +1,11 @@
 using KattaTeknologiskFestival.Data;
+using KattaTeknologiskFestival.Interfaces;
+using KattaTeknologiskFestival.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,7 +31,12 @@ namespace KattaTeknologiskFestival
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<IRoomInterface, RoomService>();
+            services.AddScoped<IEqiupmentInterface, EqiupmentService>();
+            services.AddScoped<IActivitiesInterface, ActivitiesService>();
+
+            services.AddDbContext<kftDbContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DbContextConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

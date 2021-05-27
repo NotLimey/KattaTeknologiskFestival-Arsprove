@@ -1,0 +1,51 @@
+﻿@page "/room"
+
+<div class="row">
+     <!--Calendar-->
+    <div class="col-sm-12 col-md-12 col-lg-9">
+        <Calendar>
+            <DayTemplate Context="day">
+                @{
+                    string currentDayClass = day.Date == DateTime.Now.Date ? "current-day" : "";
+                    string selectedDayClass = day == selectedDay ? "selected-day" : "";
+                }
+                @if (!day.IsEmpty)
+                {
+                    <div class="day shadow-effect @currentDayClass @selectedDayClass" @onclick="() => selectedDay = day">
+                        <h3 class="ms-fontSize-24 ms-fontWeight-regular">@day.DayNumber</h3>
+                        @if(day.Events != null && day.Events.Count != 0)
+                        {
+                            var firstEvent = day.Events.FirstOrDefault();
+                            <div class="day-event @firstEvent.Color">
+                                @if(firstEvent.Subject.Length > 25)
+                                {
+                                    @firstEvent.Subject.Substring(0, 25)<text>...</text>
+                                }else
+                                {
+                                    @firstEvent.Subject
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            </DayTemplate>
+        </Calendar>
+    </div>
+
+    <!--Day menu-->
+    <div class="col-sm-12 col-md-12 col-lg-3">
+        <!--Add Event-->
+            <AddEvent SelectedDay="selectedDay" />
+
+            <EventsList SelectedDay="selectedDay" />
+        <!--List over hva rommet brukes til den dagen-->
+        
+    </div>
+</div>
+
+@code {
+    private CalendarDay selectedDay = new CalendarDay
+    {
+        Date = DateTime.Now
+    };
+}

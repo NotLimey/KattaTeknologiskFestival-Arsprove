@@ -10,6 +10,7 @@ html, body {
     font-weight: 700;
     background-color: #e7e7e7;
     text-align: center;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -217,7 +218,7 @@ section {
 }
 
 .p-l-40 {
-    padding-left: 40px;
+    padding-left: 30px;
 }
 
 .p-l-50 {
@@ -280,7 +281,261 @@ section {
     font-weight: 400;
 }
 
+.a-Header {
+    display: flex;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 200px;
+}
 
+.joined {
+    border: solid var(--green) 3px;
+    padding: 5px 10px;
+}
+
+.a-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+}
+
+.a-grid img {
+    max-width: 700px;
+    max-height: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.a-grid p {
+    padding: 0 12%;
+    font-size: 25px;
+    font-weight: 300;
+}
+
+.join-a-btn {
+    margin-top: 100px;
+    font-size: x-large;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: 4px var(--green) solid;
+    background-color: transparent;
+    background: linear-gradient(to right, var(--green) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all .25s ease-out;
+}
+
+.join-a-btn:hover {
+    background-position: left top;
+    /*transition: .25s;*/
+}
+
+.back-a-btn {
+    margin-top: 100px;
+    font-size: x-large;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: 4px var(--green) solid;
+    background-color: transparent;
+    background: linear-gradient(to left, var(--green) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: left bottom;
+    transition: all .25s ease-out;
+}
+
+.back-a-btn:hover {
+    background-position: right top;
+    /*transition: .25s;*/
+}
+
+.Back-btn img {
+    width: 50px;
+    height: 50px;
+}
+
+.a-Buttons {
+    display: flex;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 100px;
+}
+
+.StatusCode {
+    background-color: #b24747;
+    color: #fff;
+    position: fixed;
+    top: 20px;
+    right: 0;
+    padding: 10px 0;
+    padding-left: 10px;
+}
+
+.StatusCode p{
+    background-color: #000;
+    padding: 10px;
+    padding-right: 30px;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+/*Calendar*/
+
+.shadow-effect {
+    transition: 0.3s
+}
+
+    .shadow-effect:hover {
+        -webkit-box-shadow: 0px 4px 15px -6px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 4px 15px -6px rgba(0,0,0,0.75);
+        box-shadow: 0px 4px 15px -6px rgba(0,0,0,0.75);
+    }
+
+
+/* Calendar Style */
+.calendar {
+    padding: 10px;
+}
+
+.calendar-table {
+    width: 100%;
+    background-color: #f3f2f1;
+    text-align: center;
+}
+
+    .calendar-table thead {
+        background-color: white;
+    }
+
+    .calendar-table .day {
+        width: 125px;
+        height: 100px;
+        min-width: 125px;
+        margin: 2px;
+        border-radius: 5px;
+        background-color: white;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .calendar-table td {
+        padding: 3px;
+    }
+
+
+.current-day {
+    border: 2px solid #0078d4;
+    color: #0078d4;
+}
+
+.selected-day {
+    border: 2px solid #004578;
+    color: #004578;
+    background: #c7e0f4 !important;
+}
+
+.day .day-event {
+    font-size: 10px;
+    padding: 5px;
+}
+
+
+@media (max-width: 900px) {
+    .calendar-table .day {
+        width: 100%;
+        height: 50px;
+        min-width: auto;
+    }
+
+    .day .day-event {
+        display: none;
+    }
+}
+
+/* Colors */
+.red-orange {
+    background: #da3b01;
+    color: white;
+}
+
+.magenta {
+    background: #881798;
+    color: white;
+}
+
+.pink-red {
+    background-color: #750b1c;
+    color: white;
+}
+
+.yellow {
+    background: #fce100;
+    color: black;
+}
+
+.yellow-green {
+    background: #8cbd18;
+    color: black;
+}
+
+/* calendar day section */
+.calendar-toolbar {
+    background: #0078d4;
+    color: white;
+}
+
+.toolbar-button {
+    background: #0078d4;
+    margin: 0px;
+    padding: 5px 10px;
+    text-align: center;
+    vertical-align: middle;
+    outline: none;
+    font-size: 25px;
+    font-weight: 100;
+    color: white;
+    border: none;
+}
+
+.toolbar-button:hover {
+    background: #004578;
+}
+
+.toolbar-button:focus {
+    border: none;
+    outline: none;
+}
+
+/* Input Style */
+.fluent-input {
+    display: block;
+    width: 100%;
+    padding: 3 7px;
+    margin: 10px 0;
+    border: 1px solid #3b3a39;
+}
+
+    .fluent-input:focus {
+        outline: none;
+        border: 2px dashed #0078d4;
+    }
+
+.card-content {
+    padding: 10px;
+}
+
+.event {
+    border-radius: 5px;
+    margin: 10px 5px;
+    padding: 5px;
+}
+
+.card {
+    margin: 10px;
+}
 
 /* Media queries */
 @media screen and (max-width: 600px) {
@@ -303,6 +558,80 @@ section {
 
 @media screen and (min-width: 400px) {
     .info-Header-mobile {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 1450px) {
+    .a-grid img {
+        max-width: 500px;
+    }
+    .a-grid p {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .a-grid img {
+        max-width: 400px;
+        max-height: 300px;
+    }
+
+    .a-grid p {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .back-a-btn {
+        font-size: 20px;
+        border: solid 2px var(--green);
+    }
+    .join-a-btn {
+        font-size: 20px;
+        border: solid 2px var(--green);
+    }
+    .a-Header {
+        margin-bottom: 50px;
+    }
+    .a-grid img {
+        max-width: 400px;
+        max-height: 300px;
+        margin-bottom: 50px;
+    }
+    .a-grid {
+        grid-template-columns: repeat(1, 1fr);
+        display: block;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .back-a-btn {
+        font-size: 15px;
+        margin-top: 10px;
+    }
+
+    .join-a-btn {
+        font-size: 15px;
+        margin-top: 10px;
+    }
+    .a-name {
+        font-size: 30px;
+        padding-top: 8px;
+    }
+    .joined {
+        font-size: 30px;
+    }
+}
+@media screen and (max-width: 400px) {
+
+    .a-name {
+        font-size: 20px;
+        padding-top: 6px;
+    }
+
+    .joined {
         font-size: 20px;
     }
 }
