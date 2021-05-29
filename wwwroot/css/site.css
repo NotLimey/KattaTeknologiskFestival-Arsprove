@@ -177,13 +177,20 @@ section {
     padding: 8px 0;
 }
 
+.mobile-table-grid p {
+    margin-top: auto !important;
+    margin-bottom: 0;
+    padding: 8px 0;
+}
+
 .activity-card {
     margin: 15px 0;
-    background-color: #D9D9D9;
+    background-color: #f3f2f1;
     width: 100%;
-    border: 1px solid #000;
-    border-radius: 8px;
+    padding: 25px 10px;
+    border-radius: 4px;
     font-weight: 400;
+    cursor: pointer;
 }
 
 .activity-card a {
@@ -427,8 +434,8 @@ section {
 
 
 .current-day {
-    border: 2px solid #0078d4;
-    color: #0078d4;
+    border: 2px solid #ffb600;
+    color: #ffb600;
 }
 
 .selected-day {
@@ -513,7 +520,7 @@ section {
 .fluent-input {
     display: block;
     width: 100%;
-    padding: 3 7px;
+    padding: 3px 7px;
     margin: 10px 0;
     border: 1px solid #3b3a39;
 }
@@ -537,6 +544,28 @@ section {
     margin: 10px;
 }
 
+.center-vertical {
+    margin-top: 25%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.red-text {
+    color: red;
+}
+
+.mobile-table-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.smallest-mobile-table-grid {
+
+}
+
 /* Media queries */
 @media screen and (max-width: 600px) {
     .pc {
@@ -546,6 +575,12 @@ section {
 
 @media screen and (min-width: 600px) {
     .mobile {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .mobile-table-grid {
         display: none !important;
     }
 }
@@ -604,6 +639,25 @@ section {
         display: block;
         justify-content: center;
     }
+    .table-grid {
+        display: none
+    }
+    .Header h2 {
+        font-size: 20px;
+    }
+    h1 {
+        font-size: 25px;
+    }
+    .padding-bottom-M {
+        margin-bottom: 50px;
+    }
+    .info-Header {
+        font-size: 30px;
+    }
+    .info-p {
+        font-size: 18px;
+        margin: 0 10%;
+    }
 }
 
 @media screen and (max-width: 450px) {
@@ -623,7 +677,17 @@ section {
     .joined {
         font-size: 30px;
     }
+    .mobile-table-grid {
+        display: none;
+    }
 }
+
+@media screen and (min-width: 450px) {
+    .smallest-mobile-table-grid {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 400px) {
 
     .a-name {
@@ -633,5 +697,13 @@ section {
 
     .joined {
         font-size: 20px;
+    }
+
+    .info-p-mobile {
+        font-size: 15px;
+    }
+
+    .mobile-table-grid .c{
+        font-size: 11px;
     }
 }

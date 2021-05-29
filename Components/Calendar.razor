@@ -1,9 +1,9 @@
-﻿<!--Calendar-->
+﻿<!--Kalenderen-->
 <div class="calendar">
     <div class="row">
         <div class="col-sm-12 col-lg-2">
             <select class="fluent-input" @onchange="SelectYear">
-                @for(int i = 2020; i < 2023; i++)
+                @for(int i = 2021; i < 2026; i++)
                 {
                     <option>@i</option>
                 }
@@ -15,7 +15,7 @@
                 <option value="2">Feb</option>
                 <option value="3">Mar</option>
                 <option value="4">Apr</option>
-                <option value="5">Mai</option>
+                <option value="5" selected>Mai</option>
                 <option value="6">Jun</option>
                 <option value="7">Jul</option>
                 <option value="8">Aug</option>
@@ -53,15 +53,22 @@
 </div>
 
 @code {
+    // Variables
     [Parameter] public RenderFragment<CalendarDay> DayTemplate { get; set; }
 
-    private int year = 2020;
+    private int year = 2021;
 
     private int month = 05;
 
     private List<CalendarDay> days = new List<CalendarDay>();
 
     private int rowsCount = 0;
+
+    // Når siden starter oppdater kalenderen
+    protected override void OnInitialized()
+    {
+        UpdateCalendar();
+    }
 
     void SelectYear(ChangeEventArgs e)
     {
@@ -77,6 +84,9 @@
         UpdateCalendar();
     }
 
+    // I denne funksjonen finner du koden til og oppdatere kalenderen
+    // her har jeg brukt matte for og finne ut av hvor mange blanke dager det er
+    // i måneden
     void UpdateCalendar()
     {
         days = new List<CalendarDay>();

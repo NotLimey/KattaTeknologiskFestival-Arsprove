@@ -9,8 +9,9 @@
 @inject IWebHostEnvironment WebHostEnvironment;
 @inject NavigationManager urihelper;
 @page "/"
-
+<!--Det er 2 divs en for pc og en for mobil siden nettsiden skal vises forskjellig utifra hvor den vises-->
 <div class="pc">
+    <!--Intro Section-->
     <section>
         <div id="triangle"></div>
         <div id="line"></div>
@@ -28,36 +29,63 @@
             </div>
         </div>
     </section>
-
+    <!--Text1-->
     <section>
         <h1 class="info-Header" data-aos="fade-right">Hva er Katta Teknologiske Festival?</h1>
         <p class="info-p" data-aos="fade-left">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget semper odio, at vulputate lectus. Donec blandit consequat lorem, in sollicitudin erat convallis at. Aenean faucibus nec nisl et elementum. Quisque sit amet turpis turpis. Etiam consequat efficitur molestie. Sed tempor enim non varius tristique. Ut non dolor faucibus enim faucibus fermentum at nec tellus. Mauris porta nulla at mi feugiat, nec pretium odio luctus.
         </p>
     </section>
+    <!--Text2-->
+    <section>
+        <h1 class="info-Header" data-aos="fade-right">Hvorfor være med på KTF</h1>
+        <p class="info-p" data-aos="fade-left">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget semper odio, at vulputate lectus. Donec blandit consequat lorem, in sollicitudin erat convallis at. Aenean faucibus nec nisl et elementum. Quisque sit amet turpis turpis. Etiam consequat efficitur molestie. Sed tempor enim non varius tristique. Ut non dolor faucibus enim faucibus fermentum at nec tellus. Mauris porta nulla at mi feugiat, nec pretium odio luctus.
+        </p>
+    </section>
+    <!--Liste med hva slags aktiviteter, rom og utstyr-->
     <section id="List">
         <div class="cntainer">
             <h1 class="dont-center padding-bottom-M f-500" data-aos="zoom-out">Meld deg på aktiviteter eller sett av rom og utstyr</h1>
             <div class="table-grid" data-aos="fade-left">
                 @{
+
                     if (table == 1)
                     {
-                        <div class="boardActive"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
-                        <div><a @onclick="() => changeTable(2)"><p class="pointer">Rom</p></a></div>
-                        <div><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
-                    }
-                    if (table == 2)
-                    {
-                        <div><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
-                        <div class="boardActive pointer"><a @onclick="() => changeTable(2)"><p class="pointer">Rom</p></a></div>
-                        <div><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
+                        <div class="boardActive c"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
+                        <div class="c"><a @onclick="GoToRooms"><p class="pointer">Rom</p></a></div>
+                        <div class="c"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
                     }
                     if (table == 3)
                     {
-                        <div><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
-                        <div><a @onclick="() => changeTable(2)"><p class="pointer">Rom</p></a></div>
-                        <div class="boardActive pointer"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
+                        <div class="c"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
+                        <div class="c"><a @onclick="GoToRooms"><p class="pointer">Rom</p></a></div>
+                        <div class="boardActive pointer c"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
                     }
+
+
+                }
+            </div>
+            <div class="mobile-table-grid" data-aos="fade-left">
+                @{
+
+                    if (table == 1)
+                    {
+                        <div class="boardActive c"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
+                        <div></div>
+                        <div class="c"><a @onclick="GoToRooms"><p class="pointer">Rom</p></a></div>
+                        <div></div>
+                        <div class="c"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
+                    }
+                    if (table == 3)
+                    {
+                        <div class="c"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
+                        <div></div>
+                        <div class="c"><a @onclick="GoToRooms"><p class="pointer">Rom</p></a></div>
+                        <div></div>
+                        <div class="boardActive pointer c"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
+                    }
+
 
                 }
             </div>
@@ -65,8 +93,6 @@
             <div class="line-bottom"></div>
             @if (table == 1)
             {<TableGrid grid1="Aktivitet" grid9="Påmeldte" grid10="Rom" />}
-            @if (table == 2)
-            {<TableGrid grid1="Rom" grid5="Status" />}
             @if (table == 3)
             {<TableGrid grid1="Utstyr" grid5="Opptatt Utstyr" />}
 
@@ -80,18 +106,6 @@
                             var b = a.TakenSpots + " / " + a.AvailableSpots;
 
                             <div data-aos="fade-left" @onclick="() => inspectItem(1, a.Id)"><Activity_card Class1="dont-center p-l-40" Class2="no-break" Link="#" grid1="@a.Name" grid9="@b" grid10="@a.RoomId.ToString()" /></div>
-                        }
-                    }
-                }
-                @if (table == 2)
-                {
-                    if (rooms != null)
-                    {
-                        foreach (var r in rooms)
-                        {
-                            var b = "";
-                            if (r.RoomTaken) { b = "Opptatt"; } else { b = "Ledig"; }
-                            <div data-aos="fade-left" @onclick="() => inspectItem(2, r.RoomId)"><Activity_card Link="#" grid1="@r.RoomId.ToString()" grid5="@b" /></div>
                         }
                     }
                 }
@@ -111,7 +125,9 @@
         </div>
     </section>
 </div>
+<!--Mobil siden-->
 <div class="mobile">
+    <!--Intro Section-->
     <section>
         <div id="mobile-header-img"></div>
         <div class="center-grid">
@@ -128,40 +144,145 @@
             </div>
         </div>
     </section>
+    <!--Text1-->
     <section>
         <h1 class="info-Header-mobile">Hva er Katta Teknologiske Festival?</h1>
         <p class="info-p-mobile">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget semper odio, at vulputate lectus. Donec blandit consequat lorem, in sollicitudin erat convallis at. Aenean faucibus nec nisl et elementum. Quisque sit amet turpis turpis. Etiam consequat efficitur molestie. Sed tempor enim non varius tristique. Ut non dolor faucibus enim faucibus fermentum at nec tellus. Mauris porta nulla at mi feugiat, nec pretium odio luctus.
         </p>
     </section>
+    <!--Text2-->
+    <section>
+        <h1 class="info-Header-mobile">Hvorfor være med på KTF</h1>
+        <p class="info-p-mobile">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget semper odio, at vulputate lectus. Donec blandit consequat lorem, in sollicitudin erat convallis at. Aenean faucibus nec nisl et elementum. Quisque sit amet turpis turpis. Etiam consequat efficitur molestie. Sed tempor enim non varius tristique. Ut non dolor faucibus enim faucibus fermentum at nec tellus. Mauris porta nulla at mi feugiat, nec pretium odio luctus.
+        </p>
+    </section>
+    <!--Liste med hva slags aktiviteter, rom og utstyr-->
+    <section id="List">
+        <div class="cntainer">
+            <h1 class="dont-center padding-bottom-M f-500" data-aos="zoom-out">Meld deg på aktiviteter eller sett av rom og utstyr</h1>
+            <div class="table-grid" data-aos="fade-left">
+                @{
+
+                    if (table == 1)
+                    {
+                        <div class="boardActive c"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
+                        <div class="c"><a @onclick="GoToRooms"><p class="pointer">Rom</p></a></div>
+                        <div class="c"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
+                    }
+                    if (table == 3)
+                    {
+                        <div class="c"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
+                        <div class="c"><a @onclick="GoToRooms"><p class="pointer">Rom</p></a></div>
+                        <div class="boardActive pointer c"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
+                    }
+
+
+                }
+            </div>
+            <div class="mobile-table-grid" data-aos="fade-left">
+                @{
+
+                    if (table == 1)
+                    {
+                        <div class="boardActive c"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
+                        <div></div>
+                        <div class="c"><a @onclick="GoToRooms"><p class="pointer">Rom</p></a></div>
+                        <div></div>
+                        <div class="c"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
+                    }
+                    if (table == 3)
+                    {
+                        <div class="c"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
+                        <div></div>
+                        <div class="c"><a @onclick="GoToRooms"><p class="pointer">Rom</p></a></div>
+                        <div></div>
+                        <div class="boardActive pointer c"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
+                    }
+
+
+                }
+            </div>
+
+            <div class="line-bottom"></div>
+            @if (table == 1)
+            {<TableGrid grid1="Aktivitet" grid9="Påmeldte" grid10="Rom" />}
+            @if (table == 3)
+            {<TableGrid grid1="Utstyr" grid5="Opptatt Utstyr" />}
+
+            <div>
+                @if (table == 1)
+                {
+                    if (activities != null)
+                    {
+                        foreach (var a in activities)
+                        {
+                            var b = a.TakenSpots + " / " + a.AvailableSpots;
+
+                            <div data-aos="fade-left" @onclick="() => inspectItem(1, a.Id)"><Activity_card Class1="dont-center p-l-40" Class2="no-break" Link="#" grid1="@a.Name" grid9="@b" grid10="@a.RoomId.ToString()" /></div>
+                        }
+                    }
+                }
+                @if (table == 3)
+                {
+                    if (equipments != null)
+                    {
+                        foreach (var e in equipments)
+                        {
+                            var b = e.TakenUnits + " / " + e.AvailableUnits;
+                            <div data-aos="fade-left" @onclick="() => inspectItem(3, e.Id)"><Activity_card Link="#" grid1="@e.Name" grid5="@b" /></div>
+                        }
+                    }
+                }
+
+            </div>
+        </div>
+    </section>
 </div>
 
 @code {
+    // Hvilken table som vises
     public int table = 1;
     public int activeTable { get; set; }
 
+    // Forskjellige url'er for og holde det ryddig
     public string urlA = "/Aktivitet";
+    public string urlE = "/Equipment";
 
+    // Lister med info over rom, utstyr og aktiviteter
     private List<Room> rooms;
     private List<Equipment> equipments;
     private List<Activitie> activities;
 
+    // Dette kjører når siden er ferdig med og laste
     protected override async Task OnInitializedAsync()
     {
+        // Finner tingene fra databasen og putter det inn i listene
         rooms = await iRoomInterface.GetAllComponentsAsync().ConfigureAwait(false);
         equipments = await iEqiupmentInterface.GetAllComponentsAsync().ConfigureAwait(false);
         activities = await iActivitiesInterface.GetAllComponentsAsync().ConfigureAwait(false);
     }
 
+    // Endrer hvilket table som vises
     public void changeTable(int id)
     {
         table = id;
     }
 
+    // Sender deg til siden hvor du kan inspisere det du har valgt. Du får med deg en id som parameter så den siden du kommer til
+    // skjønner hva slags ting du har valgt
     public void inspectItem(int table, int id)
     {
         if (table == 1)
             urihelper.NavigateTo(urlA + "/" + id);
+        if (table == 3)
+            urihelper.NavigateTo(urlE + "/" + id);
     }
 
+    // Gå til siden med rom
+    public void GoToRooms()
+    {
+        urihelper.NavigateTo("/room");
+    }
 }

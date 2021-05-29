@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace KattaTeknologiskFestival.Services
 {
-    public class EqiupmentService : IEqiupmentInterface
+    public class EventService : IEventInterface
     {
         private readonly kftDbContext _kftDbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public EqiupmentService(
+        public EventService(
             kftDbContext limeuLimeyfyDbContext,
             IWebHostEnvironment webHostEnvironment)
         {
@@ -23,18 +23,19 @@ namespace KattaTeknologiskFestival.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<Equipment> GetComponentAsync(int identifier)
+        public async Task<CalandarEvent> GetComponentAsync(int identifier)
         {
-            return await _kftDbContext.Equipments.FirstOrDefaultAsync(p => p.Id.Equals(identifier));
+            return await _kftDbContext.Events.FirstOrDefaultAsync(p => p.Id.Equals(identifier));
         }
 
-        public async Task<List<Equipment>> GetAllComponentsAsync()
+        public async Task<List<CalandarEvent>> GetAllComponentsAsync()
         {
-            return await _kftDbContext.Equipments.ToListAsync().ConfigureAwait(false);
+            return await _kftDbContext.Events.ToListAsync().ConfigureAwait(false);
         }
-        public async Task<bool> UpdateEquipment(Equipment updatedEquipment)
+
+        public async Task<bool> UpdateActivitie(CalandarEvent updateEvent)
         {
-            _kftDbContext.Equipments.Update(updatedEquipment);
+            _kftDbContext.Events.Update(updateEvent);
             await _kftDbContext.SaveChangesAsync();
             return true;
         }

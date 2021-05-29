@@ -11,5 +11,6 @@ namespace KattaTeknologiskFestival.Interfaces
         Task<Equipment> GetComponentAsync(int id);
 
         Task<List<Equipment>> GetAllComponentsAsync();
+        Task<bool> UpdateEquipment(Equipment updatedEquipment);
     }
 }

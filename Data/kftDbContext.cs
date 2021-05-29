@@ -18,5 +18,6 @@ namespace KattaTeknologiskFestival.Data
         public DbSet<Activitie> Activities { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<CalandarEvent> Events { get; set; }
     }
 }

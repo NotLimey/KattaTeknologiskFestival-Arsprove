@@ -1,4 +1,5 @@
-﻿<div class="ms-depth-16">
+﻿<!--her er en liste over alle eventene-->
+<div class="ms-depth-16" style="height: 100%;">
     <div class="card-content">
         <h3 class="ms-fontSize-22 ms-fontWeight-regular">@SelectedDay.Date.ToString("D")</h3>
         @{
@@ -22,8 +23,6 @@
 </div>
 
 @code {
-    [Parameter] 
+    [Parameter]
     public CalendarDay SelectedDay { get; set; }
-
-
 }

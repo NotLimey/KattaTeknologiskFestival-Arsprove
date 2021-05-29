@@ -1,0 +1,120 @@
+﻿@page "/Equipment"
+@page "/Equipment/{id:int}"
+
+@using KattaTeknologiskFestival.Data
+@using Microsoft.EntityFrameworkCore
+@using KattaTeknologiskFestival.Interfaces
+@using Microsoft.AspNetCore.Hosting
+@inject IWebHostEnvironment WebHostEnvironment;
+@inject IEqiupmentInterface iEquipmentInterface;
+@inject kftDbContext _db;
+@inject NavigationManager urihelper;
+@inject IJSRuntime JSRuntime;
+
+@{
+    var p = TakenSpots + " / " + AvailableSpots;
+}
+
+<div data-aos="fade-left" class="@StatusCodeClasses">
+    <p>@StatusCode</p>
+</div>
+
+<div class="cntainer">
+    <div class="a-Header">
+        <div>
+            <h1 class="a-name">@Name</h1>
+        </div>
+        <h1 class="joined">@p</h1>
+    </div>
+    <div class="a-grid">
+        <div><img src="@ImgUrl" alt="@Name img" /></div>
+        <p>@Description</p>
+    </div>
+    <div class="a-Buttons">
+        <button @onclick="GoBack" class="back-a-btn">
+            Tilbake
+        </button>
+        <button @onclick="Update" class="join-a-btn">
+            Bli med!
+        </button>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    public bool failed = false;
+    public string StatusCode = "! Fant ikke aktivitet";
+    public string StatusCodeClasses = "d-none";
+
+    private string Name { get; set; }
+    private int AvailableSpots { get; set; }
+    private int TakenSpots { get; set; }
+    private string Description { get; set; }
+    private string ImgUrl { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var item = await iEquipmentInterface.GetComponentAsync(id);
+        if (item == null)
+        {
+            return;
+        }
+        Name = item.Name;
+        AvailableSpots = item.AvailableUnits;
+        TakenSpots = item.TakenUnits;
+        Description = item.Description;
+        ImgUrl = item.ImgUrl;
+    }
+
+    public void GoBack()
+    {
+        urihelper.NavigateTo("/");
+    }
+
+    public async Task Update()
+    {
+        var item = await iEquipmentInterface.GetComponentAsync(id);
+        if (item != null)
+        {
+            if (item.TakenUnits < item.AvailableUnits)
+            {
+                item.TakenUnits++;
+                var hasSucceded = await iEquipmentInterface.UpdateEquipment(item);
+                if (hasSucceded)
+                {
+                    urihelper.NavigateTo("/");
+                }
+                if(!hasSucceded)
+                {
+                    failed = true;
+                    StatusCode = "! Kunne ikke laste opp til databasen";
+                    StatusCodeClasses = "StatusCode";
+                    StateHasChanged();
+                    await Task.Delay(5000);
+                    StatusCodeClasses = "d-none";
+                }
+            }
+            else
+            {
+                failed = true;
+                StatusCode = "! Ingen ledige plasser igjen";
+                StatusCodeClasses = "StatusCode";
+                StateHasChanged();
+                await Task.Delay(5000);
+                StatusCodeClasses = "d-none";
+            }
+        }
+        else
+        {
+            failed = true;
+            StatusCode = "! Fant ikke aktivitet";
+            StatusCodeClasses = "StatusCode";
+            StateHasChanged();
+            await Task.Delay(5000);
+            StatusCodeClasses = "d-none";
+        }
+    }
+}

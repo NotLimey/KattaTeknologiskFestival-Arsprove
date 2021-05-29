@@ -8,10 +8,10 @@ namespace KattaTeknologiskFestival.Models
     public class Equipment
     {
         public string Name { get; set; }
-
         public int AvailableUnits { get; set; }
         public int TakenUnits { get; set; }
-
         public int Id { get; set; }
+        public string Description { get; set; }
+        public string ImgUrl { get; set; }
     }
 }

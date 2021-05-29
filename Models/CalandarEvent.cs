@@ -7,6 +7,7 @@ namespace KattaTeknologiskFestival.Models
 {
     public class CalandarEvent
     {
+        public int Id { get; set; }
         public CalandarEvent()
         {
             Color = Helpers.RandomColorHelper.GetRandomColorClass();

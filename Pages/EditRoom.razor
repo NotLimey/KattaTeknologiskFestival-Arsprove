@@ -1,51 +1,111 @@
 ﻿@page "/room"
 
-<div class="row">
-     <!--Calendar-->
-    <div class="col-sm-12 col-md-12 col-lg-9">
-        <Calendar>
-            <DayTemplate Context="day">
-                @{
-                    string currentDayClass = day.Date == DateTime.Now.Date ? "current-day" : "";
-                    string selectedDayClass = day == selectedDay ? "selected-day" : "";
-                }
-                @if (!day.IsEmpty)
-                {
-                    <div class="day shadow-effect @currentDayClass @selectedDayClass" @onclick="() => selectedDay = day">
-                        <h3 class="ms-fontSize-24 ms-fontWeight-regular">@day.DayNumber</h3>
-                        @if(day.Events != null && day.Events.Count != 0)
-                        {
-                            var firstEvent = day.Events.FirstOrDefault();
-                            <div class="day-event @firstEvent.Color">
-                                @if(firstEvent.Subject.Length > 25)
-                                {
-                                    @firstEvent.Subject.Substring(0, 25)<text>...</text>
-                                }else
-                                {
-                                    @firstEvent.Subject
-                                }
-                            </div>
-                        }
+<div style="min-height: 100vh;">
+    @{
+        if (showCalendar)
+        {
+            <div class="row">
+                <!--Kalender-->
+                <div class="col-sm-12 col-md-12 col-lg-9">
+                    <!--Her henter den componenten kalender fra /components og bruker den.
+                        den putter inn infoen om dag osv-->
+                    <Calendar>
+                        <DayTemplate Context="day">
+                            @{
+                                string currentDayClass = day.Date == DateTime.Now.Date ? "current-day" : "";
+                                string selectedDayClass = day == selectedDay ? "selected-day" : "";
+                            }
+                            @if (!day.IsEmpty)
+                            {
+                                <div class="day shadow-effect @currentDayClass @selectedDayClass" @onclick="() => selectedDay = day">
+                                    <h3 class="ms-fontSize-24 ms-fontWeight-regular">@day.DayNumber</h3>
+                                    @if (day.Events != null && day.Events.Count != 0)
+                                    {
+                                        var firstEvent = day.Events.FirstOrDefault();
+                                        <div class="day-event @firstEvent.Color">
+                                            @if (firstEvent.Subject.Length > 25)
+                                            {
+                                                @firstEvent.Subject.Substring(0, 25)<text>...</text>
+                                            }
+                                            else
+                                            {
+                                                @firstEvent.Subject
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </DayTemplate>
+                    </Calendar>
+                </div>
+
+                <!--Day menu-->
+                <div class="col-sm-12 col-md-12 col-lg-3">
+                    <!--Add Event-->
+                    <AddEvent SomethingChanged="Changed" SelectedDay="selectedDay" />
+
+                    <EventsList SelectedDay="selectedDay" />
+                    <!--Liste over hva rommet brukes til den dagen-->
+
+                </div>
+            </div>
+        }else
+        {
+            <!--Formen som lar deg velge hvilket rom du skal inspisere-->
+            <div class="center-vertical">
+
+                <h1 class="ms-fontSize-24 ms-fontWeight-regular">Fyll inn romnummer</h1>
+                <EditForm Model="@roomId" OnValidSubmit="ShowCalendar">
+                    @if(showErrorCode)
+                    {
+                        <p class="red-text">Rom nummeret må være 4 siffer langt</p>
+                    }
+                    <div class="form-group">
+                        <input type="number" @bind-value="roomId" class="form-control" id="exampleInputPassword1" placeholder="Rom nummer">
                     </div>
-                }
-            </DayTemplate>
-        </Calendar>
-    </div>
-
-    <!--Day menu-->
-    <div class="col-sm-12 col-md-12 col-lg-3">
-        <!--Add Event-->
-            <AddEvent SelectedDay="selectedDay" />
-
-            <EventsList SelectedDay="selectedDay" />
-        <!--List over hva rommet brukes til den dagen-->
-        
-    </div>
+                    <button type="submit" class="btn btn-primary">Se kalender <i class="ms-Icon ms-Icon--Forward"></i></button>
+                </EditForm>
+            </div>
+        }
+    }
 </div>
 
 @code {
+    // Variabler
+    public int roomId { get; set; }
+
+    private bool showErrorCode = false;
+
+    private bool showCalendar = false;
+
+    // Setter dagen du har trykket på
     private CalendarDay selectedDay = new CalendarDay
     {
         Date = DateTime.Now
     };
+
+    // Oppdaterer kalenderen når den får en event update fra componenten AddEvent
+    public void Changed()
+    {
+        Console.WriteLine("Changed !");
+        StateHasChanged();
+    }
+
+    // Viser kalenderen etter at du har satt inn rom nummer 
+    public void ShowCalendar()
+    {
+        // Hvis rom nummeret ikke har 4 siffrer ber den brukeren taste inn på nytt
+        // Hvis rom nummeret ikke har 4 siffrer ber den brukeren taste inn på nytt
+        if (roomId.ToString().Length == 4)
+        {
+            showCalendar = true;
+            StateHasChanged();
+        }else
+        {
+            showErrorCode = true;
+            StateHasChanged();
+        }
+
+    }
+
 }
