@@ -62,6 +62,9 @@ namespace KattaTeknologiskFestival.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("RoomId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
 

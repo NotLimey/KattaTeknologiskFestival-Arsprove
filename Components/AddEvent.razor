@@ -1,4 +1,11 @@
-﻿
+﻿@using KattaTeknologiskFestival.Data
+@using Microsoft.EntityFrameworkCore
+@using KattaTeknologiskFestival.Interfaces
+@using Microsoft.AspNetCore.Hosting
+@inject kftDbContext _db;
+@inject ICalendarEventsInterface iCalendarEventsInterface;
+@inject IWebHostEnvironment WebHostEnvironment;
+@inject NavigationManager urihelper;
 <!--Denne componenten legger til nye eventer i kalenderen-->
 
 <div class="ms-depth-16">
@@ -29,7 +36,7 @@
     public Action SomethingChanged { get; set; }
 
     // scriptet som legger til nytt event
-    private void AddEventToSelectedDay()
+    private async Task AddEventToSelectedDay()
     {
         // Convert time to new date within selected day
         model.StartDate = new DateTime(SelectedDay.Date.Year,
@@ -53,12 +60,17 @@
         {
             Subject = model.Subject,
             StartDate = model.StartDate,
-            EndDate = model.EndDate
+            EndDate = model.EndDate,
+            RoomId = model.RoomId
         });
 
         Console.WriteLine($"Total Event in Day {SelectedDay.Events.Count} / {model.Subject} / {model.StartDate} / {model.EndDate}");
         model = new CalandarEvent();
 
+        var succeded = await iCalendarEventsInterface.AddCalendarEvent(model.Subject, model.StartDate, model.EndDate, model.RoomId);
+
+        if (succeded)
+            Console.WriteLine(model.Subject);
         //Sier ifra til eventet at noe har skjedd og at siden på oppdateres
         SomethingChanged.Invoke();
     }

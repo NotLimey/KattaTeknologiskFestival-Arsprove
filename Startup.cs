@@ -34,6 +34,7 @@ namespace KattaTeknologiskFestival
             services.AddScoped<IRoomInterface, RoomService>();
             services.AddScoped<IEqiupmentInterface, EqiupmentService>();
             services.AddScoped<IActivitiesInterface, ActivitiesService>();
+            services.AddScoped<ICalendarEventsInterface, CalendarEventsService>();
 
             services.AddDbContext<kftDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DbContextConnection")));

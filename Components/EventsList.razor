@@ -1,4 +1,13 @@
-﻿<!--her er en liste over alle eventene-->
+﻿@using KattaTeknologiskFestival.Data
+@using Microsoft.EntityFrameworkCore
+@using KattaTeknologiskFestival.Interfaces
+@using Microsoft.AspNetCore.Hosting
+@inject kftDbContext _db;
+@inject ICalendarEventsInterface iCalendarEventsInterface;
+@inject IWebHostEnvironment WebHostEnvironment;
+@inject NavigationManager urihelper;
+
+<!--her er en liste over alle eventene-->
 <div class="ms-depth-16" style="height: 100%;">
     <div class="card-content">
         <h3 class="ms-fontSize-22 ms-fontWeight-regular">@SelectedDay.Date.ToString("D")</h3>
@@ -24,5 +33,19 @@
 
 @code {
     [Parameter]
+    public int RoomId { get; set; }
+
+    [Parameter]
     public CalendarDay SelectedDay { get; set; }
+
+    public List<CalandarEvent> dayEvent { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(RoomId != 0)
+        {
+            SelectedDay.Events = await iCalendarEventsInterface.GetAllComponentsByRoomAsync(RoomId).ConfigureAwait(false);
+        }
+
+    }
 }
