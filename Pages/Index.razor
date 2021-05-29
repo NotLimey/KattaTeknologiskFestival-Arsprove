@@ -181,23 +181,19 @@
 
                 }
             </div>
-            <div class="mobile-table-grid" data-aos="fade-left">
+            <div class="table-picker-grid" data-aos="fade-left">
                 @{
 
                     if (table == 1)
                     {
                         <div class="boardActive c"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
-                        <div></div>
                         <div class="c"><a @onclick="GoToRooms"><p class="pointer">Rom</p></a></div>
-                        <div></div>
                         <div class="c"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
                     }
                     if (table == 3)
                     {
                         <div class="c"><a @onclick="() => changeTable(1)"><p class="pointer">Aktiviteter</p></a></div>
-                        <div></div>
                         <div class="c"><a @onclick="GoToRooms"><p class="pointer">Rom</p></a></div>
-                        <div></div>
                         <div class="boardActive pointer c"><a @onclick="() => changeTable(3)"><p class="pointer">Utstyr</p></a></div>
                     }
 

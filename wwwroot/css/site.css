@@ -183,6 +183,12 @@ section {
     padding: 8px 0;
 }
 
+.table-picker-grid p {
+    margin-top: auto !important;
+    margin-bottom: 0;
+    padding: 8px 0;
+}
+
 .activity-card {
     margin: 15px 0;
     background-color: #f3f2f1;
@@ -562,8 +568,15 @@ section {
     grid-row-gap: 0px;
 }
 
-.smallest-mobile-table-grid {
+.table-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
 
+.smallest-mobile-table-grid {
 }
 
 /* Media queries */
@@ -703,7 +716,7 @@ section {
         font-size: 15px;
     }
 
-    .mobile-table-grid .c{
+    .table-picker-grid -c {
         font-size: 11px;
     }
 }
